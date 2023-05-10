@@ -1,24 +1,21 @@
-//Day-1
-//Problem- String Mirror
+package Problem_of_the_Day;
 
-
-class Solution {
-	public static String stringMirror(String str) {
-        // code here
-         StringBuilder sb = new StringBuilder();
-        sb.append(str.charAt(0));
-        for (int i = 1; i < str.length(); i++) {
-            if (str.charAt(i-1) >= str.charAt(i) && str.charAt(0) != str.charAt(1)) {
-                sb.append(str.charAt(i));
-            } else {
-                break;
-            }
-        }
-        String s = sb.toString();
-        sb.setLength(s.length());
-        for (int j = s.length()-1; j >= 0; j--) {
-            sb.append(s.charAt(j));
-        }
-        return sb.toString();
-    }
+public class Solution {
+	 public static int totalCuts(int N, int K, int[] A) {
+	        // code here
+	        int count=0;
+	        int leftMax=A[0];
+	        int[] rightMin = new int[N];
+	        rightMin[N - 1] = A[N - 1];
+	        for (int i = N - 2; i >= 0; i--) {
+	            rightMin[i] = Math.min(rightMin[i + 1], A[i]);
+	        }
+	        for (int i = 0; i < N - 1; i++) {
+	            leftMax = Math.max(leftMax, A[i]);
+	            if (leftMax + rightMin[i + 1] >= K) {
+	                count++;
+	            }
+	        }
+	        return count;
+	 }
 }
